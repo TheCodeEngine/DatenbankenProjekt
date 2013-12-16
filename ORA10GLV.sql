@@ -1,5 +1,6 @@
 -- DB Löschen
 
+DROP TABLE ausleihe;
 DROP SEQUENCE GDB1331.seq_buch_id;
 DROP TABLE buch;
 DROP SEQUENCE GDB1331.seq_leser_id;
@@ -28,6 +29,16 @@ CREATE TABLE leser
   PRIMARY KEY (leser_id)
 );
 
+CREATE TABLE ausleihe
+(
+  leser_id NUMBER(6),
+  buch_id NUMBER(6),
+  ausleihdatum TIMESTAMP NOT NULL,
+  FOREIGN KEY (leser_id) REFERENCES leser(leser_id),
+  FOREIGN KEy (buch_id) REFERENCES buch(buch_id),
+  PRIMARY KEY (buch_id,ausleihdatum)
+);
+
 
 -- DB füllen
 
@@ -36,5 +47,4 @@ INSERT INTO buch VALUES (seq_buch_id.NEXTVAL, 'Buch');
 -- // Leser
 INSERT INTO leser (leser_id, nachname, vorname, geburtsdatum, adresse, anmeldedatum) VALUES
 (seq_leser_id.NEXTVAL, 'Doe', 'John', to_date('01.01.1990', 'dd.mm.yyyy'), 'STRASSE NUMMER, ORT', to_timestamp('2013-01-01 15:00', 'YYYY-MM-DD HH24:MI:SS'))
-
 
