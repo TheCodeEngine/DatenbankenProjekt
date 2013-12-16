@@ -57,10 +57,11 @@ CREATE TABLE rueckgabe
 (
   leser_id NUMBER(6),
   buch_id NUMBER(6),
+  ausleihdatum TIMESTAMP,
   rueckgabedatum TIMESTAMP NOT NULL,
   FOREIGN KEY (leser_id) REFERENCES leser(leser_id),
-  FOREIGN KEY (buch_id) REFERENCES buch(buch_id),
-  PRIMARY KEY (buch_id,rueckgabedatum)
+  FOREIGN KEy (buch_id,ausleihdatum) REFERENCES ausleihe(buch_id,ausleihdatum),
+  PRIMARY KEY (buch_id,ausleihdatum)
 );
 
 ------------------------------------------------------------------------------------------------------------------------
@@ -76,4 +77,6 @@ INSERT INTO leser (leser_id, nachname, vorname, geburtsdatum, adresse, anmeldeda
 (seq_leser_id.NEXTVAL, 'Doe', 'John', to_date('01.01.1990', 'dd.mm.yyyy'), 'STRASSE NUMMER, ORT', to_timestamp('2013-01-01 15:00', 'YYYY-MM-DD HH24:MI:SS'));
 -- // Ausleihe
 INSERT INTO ausleihe VALUES (1, 1, to_timestamp('2013-12-01 12:00', 'YYYY-MM-DD HH24:MI:SS'));
+-- // Rueckgabe
+INSERT INTO rueckgabe VALUES (1,1, to_timestamp('2013-12-01 12:00', 'YYYY-MM-DD HH24:MI:SS'), to_timestamp('2013-12-02 12:00', 'YYYY-MM-DD HH24:MI:SS'));
 
