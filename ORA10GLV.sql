@@ -9,6 +9,7 @@
 -- DB zuruecksetzen
 --
 ------------------------------------------------------------------------------------------------------------------------
+DROp TABLE vorbestellung;
 DROP TABLE verlaengerung;
 DROP TABLE rueckgabe;
 DROP TABLE ausleihe;
@@ -76,6 +77,15 @@ CREATE TABLE verlaengerung
   PRIMARY KEY (buch_id,ausleihdatum)
 );
 
+CREATE TABLE vorbestellung
+(
+  leser_id NUMBER(6),
+  buch_id NUMBER(6),
+  vorbestelldatum TIMESTAMP,
+  FOREIGN KEY (leser_id) REFERENCES leser(leser_id),
+  PRIMARY KEY (buch_id,vorbestelldatum)
+);
+
 ------------------------------------------------------------------------------------------------------------------------
 --
 -- DB füllen
@@ -92,3 +102,4 @@ INSERT INTO ausleihe VALUES (1, 1, to_timestamp('2013-12-01 12:00', 'YYYY-MM-DD 
 -- // Rueckgabe
 INSERT INTO rueckgabe VALUES (1,1, to_timestamp('2013-12-01 12:00', 'YYYY-MM-DD HH24:MI:SS'), to_timestamp('2013-12-02 12:00', 'YYYY-MM-DD HH24:MI:SS'));
 
+SELECT * FROM ausleihe WHERE buch_id = 1 and ausleihdatum = to_timestamp('2013-12-01 12:00', 'YYYY-MM-DD HH24:MI:SS');
