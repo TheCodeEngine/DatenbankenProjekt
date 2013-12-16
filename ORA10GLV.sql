@@ -9,6 +9,7 @@
 -- DB zuruecksetzen
 --
 ------------------------------------------------------------------------------------------------------------------------
+DROP TABLE rueckgabe;
 DROP TABLE ausleihe;
 DROP SEQUENCE GDB1331.seq_buch_id;
 DROP TABLE buch;
@@ -50,6 +51,16 @@ CREATE TABLE ausleihe
   FOREIGN KEY (leser_id) REFERENCES leser(leser_id),
   FOREIGN KEy (buch_id) REFERENCES buch(buch_id),
   PRIMARY KEY (buch_id,ausleihdatum)
+);
+
+CREATE TABLE rueckgabe
+(
+  leser_id NUMBER(6),
+  buch_id NUMBER(6),
+  rueckgabedatum TIMESTAMP NOT NULL,
+  FOREIGN KEY (leser_id) REFERENCES leser(leser_id),
+  FOREIGN KEY (buch_id) REFERENCES buch(buch_id),
+  PRIMARY KEY (buch_id,rueckgabedatum)
 );
 
 ------------------------------------------------------------------------------------------------------------------------
