@@ -2,9 +2,8 @@
 
 DROP SEQUENCE GDB1331.seq_buch_id;
 DROP TABLE buch;
-DROP SEQUENCE GDB1331.seq_person_id;
-DROP TABLE person;
-DROP TABLE ausleihe;
+DROP SEQUENCE GDB1331.seq_leser_id;
+DROP TABLE leser;
 
 -- DB erzeugen:
 
@@ -16,31 +15,26 @@ CREATE TABLE buch
   PRIMARY KEY (buch_id)
 );
 
-CREATE SEQUENCE seq_person_id START WITH 1 INCREMENT BY 1;
-CREATE TABLE person
+CREATE SEQUENCE seq_leser_id START WITH 1 INCREMENT BY 1;
+CREATE TABLE leser
 (
-  person_id NUMBER(6),
-  vorname VARCHAR(25),
-  PRIMARY KEY (person_id)
+  leser_id NUMBER(6),
+  nachname VARCHAR(25) NOT NULL,
+  vorname VARCHAR(25) NOT NULL,
+  geburtsdatum DATE NOT NULL,
+  titel VARCHAR(25),
+  adresse VARCHAR(25) NOT NULL,
+  anmeldedatum TIMESTAMP NOT NULL,
+  PRIMARY KEY (leser_id)
 );
 
-CREATE TABLE ausleihe
-(
-  ausleihdatum TIMESTAMP,
-  person_id NUMBER(6),
-  buch_id NUMBER(6),
-  PRIMARY KEY (ausleihdatum,buch_id)
-);
 
--- DB auffüllen
+-- DB füllen
 
 -- // Buch
 INSERT INTO buch VALUES (seq_buch_id.NEXTVAL, 'Buch');
+-- // Leser
+INSERT INTO leser (leser_id, nachname, vorname, geburtsdatum, adresse, anmeldedatum) VALUES
+(seq_leser_id.NEXTVAL, 'Doe', 'John', to_date('01.01.1990', 'dd.mm.yyyy'), 'STRASSE NUMMER, ORT', to_timestamp('2013-01-01 15:00', 'YYYY-MM-DD HH24:MI:SS'))
 
--- // Person
-INSERT INTO person VALUES (seq_person_id.NEXTVAL, 'John');
 
--- // Ausleihe
-INSERT INTO ausleihe (ausleihdatum, buch_id, person_id) VALUES (to_timestamp('2009-09-21 14:45', 'YYYY-MM-DD HH24:MI:SS'), 1, 1);
-
-SELECT * FROM ausleihe;
