@@ -9,7 +9,8 @@
 -- DB zuruecksetzen
 --
 ------------------------------------------------------------------------------------------------------------------------
-DROp TABLE vorbestellung;
+DROP TABLE mahnungen;
+DROP TABLE vorbestellung;
 DROP TABLE verlaengerung;
 DROP TABLE rueckgabe;
 DROP TABLE ausleihe;
@@ -73,7 +74,7 @@ CREATE TABLE verlaengerung
   ausleihdatum TIMESTAMP,
   verlaengerung NUMBER(1),
   FOREIGN KEY (leser_id) REFERENCES leser(leser_id),
-  FOREIGN KEy (buch_id,ausleihdatum) REFERENCES ausleihe(buch_id,ausleihdatum),
+  FOREIGN KEY (buch_id,ausleihdatum) REFERENCES ausleihe(buch_id,ausleihdatum),
   PRIMARY KEY (buch_id,ausleihdatum)
 );
 
@@ -84,6 +85,15 @@ CREATE TABLE vorbestellung
   vorbestelldatum TIMESTAMP,
   FOREIGN KEY (leser_id) REFERENCES leser(leser_id),
   PRIMARY KEY (buch_id,vorbestelldatum)
+);
+
+CREATE TABLE mahnungen
+(
+  mahnung_id NUMBER(6),
+  leser_id NUMBER(6),
+  mahnungsadtum TIMESTAMP,
+  FOREIGN KEY (leser_id) REFERENCES leser(leser_id),
+  PRIMARY KEY (leser_id,mahnungsadtum)
 );
 
 ------------------------------------------------------------------------------------------------------------------------
