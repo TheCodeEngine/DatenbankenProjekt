@@ -9,6 +9,8 @@
 -- DB zuruecksetzen
 --
 ------------------------------------------------------------------------------------------------------------------------
+DROP SEQUENCE GDB1331.seq_autor_id;
+DROP TABLE autor;
 DROP SEQUENCE GDB1331.seq_verlag_id;
 DROP TABLE verlag;
 DROP TABLE mahnungen;
@@ -111,6 +113,16 @@ CREATE TABLE verlag
   name VARCHAR(25) NOT NULL,
   ort VARCHAR(25) NOT NULL,
   PRIMARY KEY (verlag_id)
+);
+
+CREATE SEQUENCE seq_autor_id START WITH 1 INCREMENT BY 1;
+CREATE TABLE autor
+(
+  autor_id NUMBER(6),
+  vorname VARCHAR(25) NOT NULL,
+  nachname VARCHAR(25) NOT NULL,
+  titel VARCHAR(25)
+  PRIMARY KEY (autor_id)
 );
 
 ------------------------------------------------------------------------------------------------------------------------
