@@ -30,6 +30,12 @@ CREATE TABLE buch
 (
   buch_id NUMBER(6),
   title VARCHAR(25) NOT NULL,
+  erstveroeffentlichung DATE NOT NULL,
+  herausgeber VARCHAR(25) NOT NULL,
+  isbn NUMBER(13),
+  art NUMBER(2),
+  excerpt VARCHAR(255),
+  tags VARCHAR(100),
   PRIMARY KEY (buch_id)
 );
 
