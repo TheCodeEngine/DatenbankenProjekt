@@ -9,6 +9,7 @@
 -- DB zuruecksetzen
 --
 ------------------------------------------------------------------------------------------------------------------------
+DROP TABLE autorenschaft;
 DROP SEQUENCE GDB1331.seq_autor_id;
 DROP TABLE autor;
 DROP SEQUENCE GDB1331.seq_verlag_id;
@@ -121,10 +122,18 @@ CREATE TABLE autor
   autor_id NUMBER(6),
   vorname VARCHAR(25) NOT NULL,
   nachname VARCHAR(25) NOT NULL,
-  titel VARCHAR(25)
+  titel VARCHAR(25),
   PRIMARY KEY (autor_id)
 );
 
+CREATE TABLE autorenschaft
+(
+  autor_id NUMBER(6),
+  buch_id NUMBER(6),
+  FOREIGN KEY (autor_id) REFERENCES autor(autor_id),
+  FOREIGN KEY (buch_id) REFERENCES buch(buch_id),
+  PRIMARY KEY (autor_id,buch_id)
+);
 ------------------------------------------------------------------------------------------------------------------------
 --
 -- DB füllen
