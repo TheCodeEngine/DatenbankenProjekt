@@ -9,6 +9,8 @@
 -- DB zuruecksetzen
 --
 ------------------------------------------------------------------------------------------------------------------------
+DROP SEQUENCE GDB1331.seq_verlag_id;
+DROP TABLE verlag;
 DROP TABLE mahnungen;
 DROP TABLE vorbestellung;
 DROP TABLE verlaengerung;
@@ -102,20 +104,17 @@ CREATE TABLE mahnungen
   PRIMARY KEY (leser_id,mahnungsadtum)
 );
 
+CREATE SEQUENCE seq_verlag_id START WITH 1 INCREMENT BY 10;
+CREATE TABLE verlag
+(
+  verlag_id NUMBER(6),
+  name VARCHAR(25) NOT NULL,
+  ort VARCHAR(25) NOT NULL,
+  PRIMARY KEY (verlag_id)
+);
+
 ------------------------------------------------------------------------------------------------------------------------
 --
 -- DB füllen
 --
 ------------------------------------------------------------------------------------------------------------------------
-
--- // Buch
-INSERT INTO buch VALUES (seq_buch_id.NEXTVAL, 'Buch');
--- // Leser
-INSERT INTO leser (leser_id, nachname, vorname, geburtsdatum, adresse, anmeldedatum) VALUES
-(seq_leser_id.NEXTVAL, 'Doe', 'John', to_date('01.01.1990', 'dd.mm.yyyy'), 'STRASSE NUMMER, ORT', to_timestamp('2013-01-01 15:00', 'YYYY-MM-DD HH24:MI:SS'));
--- // Ausleihe
-INSERT INTO ausleihe VALUES (1, 1, to_timestamp('2013-12-01 12:00', 'YYYY-MM-DD HH24:MI:SS'));
--- // Rueckgabe
-INSERT INTO rueckgabe VALUES (1,1, to_timestamp('2013-12-01 12:00', 'YYYY-MM-DD HH24:MI:SS'), to_timestamp('2013-12-02 12:00', 'YYYY-MM-DD HH24:MI:SS'));
-
-SELECT * FROM ausleihe WHERE buch_id = 1 and ausleihdatum = to_timestamp('2013-12-01 12:00', 'YYYY-MM-DD HH24:MI:SS');
