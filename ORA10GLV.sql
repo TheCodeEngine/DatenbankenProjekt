@@ -42,7 +42,6 @@ CREATE TABLE buch
   herausgeber VARCHAR(25) NOT NULL,
   aufnahmedatum DATE NOT NULL,
   isbn NUMBER(13),
-
   excerpt VARCHAR(255),
   tags VARCHAR(100),
   PRIMARY KEY (buch_id)
@@ -64,53 +63,47 @@ CREATE TABLE leser
 
 CREATE TABLE ausleihe
 (
-  leser_id NUMBER(6),
-  buch_id NUMBER(6),
+  leser_id NUMBER(6) REFERENCES leser(leser_id),
+  buch_id NUMBER(6) REFERENCES buch(buch_id),
   ausleihdatum TIMESTAMP NOT NULL,
-  FOREIGN KEY (leser_id) REFERENCES leser(leser_id),
-  FOREIGN KEy (buch_id) REFERENCES buch(buch_id),
   PRIMARY KEY (buch_id,ausleihdatum)
 );
 
 CREATE TABLE rueckgabe
 (
-  leser_id NUMBER(6),
+  leser_id NUMBER(6) REFERENCES leser(leser_id),
   buch_id NUMBER(6),
   ausleihdatum TIMESTAMP,
   rueckgabedatum TIMESTAMP NOT NULL,
-  FOREIGN KEY (leser_id) REFERENCES leser(leser_id),
-  FOREIGN KEy (buch_id,ausleihdatum) REFERENCES ausleihe(buch_id,ausleihdatum),
+  FOREIGN KEY (buch_id,ausleihdatum) REFERENCES ausleihe(buch_id,ausleihdatum),
   PRIMARY KEY (buch_id,ausleihdatum)
 );
 
 CREATE TABLE verlaengerung
 (
-  leser_id NUMBER(6),
+  leser_id NUMBER(6) REFERENCES leser(leser_id),
   buch_id NUMBER(6),
   ausleihdatum TIMESTAMP,
   verlaengerung NUMBER(1),
-  FOREIGN KEY (leser_id) REFERENCES leser(leser_id),
   FOREIGN KEY (buch_id,ausleihdatum) REFERENCES ausleihe(buch_id,ausleihdatum),
   PRIMARY KEY (buch_id,ausleihdatum)
 );
 
 CREATE TABLE vorbestellung
 (
-  leser_id NUMBER(6),
+  leser_id NUMBER(6) REFERENCES leser(leser_id),
   buch_id NUMBER(6),
   vorbestelldatum TIMESTAMP,
-  FOREIGN KEY (leser_id) REFERENCES leser(leser_id),
   PRIMARY KEY (buch_id,vorbestelldatum)
 );
 
 CREATE TABLE mahnungen
 (
   mahnung_id NUMBER(6),
-  leser_id NUMBER(6),
+  leser_id NUMBER(6) REFERENCES leser(leser_id),
   mahnungsadtum TIMESTAMP NOT NULL,
   grund NUMBER(4) NOT NULL,
   beschreibung VARCHAR(255),
-  FOREIGN KEY (leser_id) REFERENCES leser(leser_id),
   PRIMARY KEY (leser_id,mahnungsadtum)
 );
 
@@ -125,10 +118,8 @@ CREATE TABLE verlag
 
 CREATE TABLE verlegt
 (
-  verlag_id NUMBER(6),
-  buch_id NUMBER(6),
-  FOREIGN KEY (verlag_id) REFERENCES verlag(verlag_id),
-  FOREIGN KEY (buch_id) REFERENCES buch(buch_id),
+  verlag_id NUMBER(6) REFERENCES verlag(verlag_id),
+  buch_id NUMBER(6) REFERENCES buch(buch_id),
   PRIMARY KEY (verlag_id,buch_id)
 );
 
@@ -145,10 +136,8 @@ CREATE TABLE autor
 
 CREATE TABLE autorenschaft
 (
-  autor_id NUMBER(6),
-  buch_id NUMBER(6),
-  FOREIGN KEY (autor_id) REFERENCES autor(autor_id),
-  FOREIGN KEY (buch_id) REFERENCES buch(buch_id),
+  autor_id NUMBER(6) REFERENCES autor(autor_id),
+  buch_id NUMBER(6) REFERENCES buch(buch_id),
   PRIMARY KEY (autor_id,buch_id)
 );
 
@@ -160,10 +149,8 @@ CREATE TABLE formatart
 
 CREATE TABLE format
 (
-  buch_id NUMBER(6),
-  format_id NUMBER(6),
-  FOREIGN KEY (buch_id) REFERENCES buch(buch_id),
-  FOREIGN KEY (format_id) REFERENCES formatart(format_id),
+  buch_id NUMBER(6) REFERENCES buch(buch_id),
+  format_id NUMBER(6) REFERENCES formatart(format_id),
   PRIMARY KEY (buch_id,format_id)
 );
 
