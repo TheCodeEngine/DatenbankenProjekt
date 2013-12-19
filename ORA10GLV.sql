@@ -9,6 +9,7 @@
 -- DB zuruecksetzen
 --
 ------------------------------------------------------------------------------------------------------------------------
+DROP TABLE verlegt;
 DROP TABLE autorenschaft;
 DROP SEQUENCE GDB1331.seq_autor_id;
 DROP TABLE autor;
@@ -37,6 +38,7 @@ CREATE TABLE buch
   title VARCHAR(25) NOT NULL,
   erstveroeffentlichung DATE NOT NULL,
   herausgeber VARCHAR(25) NOT NULL,
+  aufnahmedatum DATE NOT NULL,
   isbn NUMBER(13),
   art NUMBER(2),
   excerpt VARCHAR(255),
@@ -54,6 +56,7 @@ CREATE TABLE leser
   titel VARCHAR(25),
   adresse VARCHAR(25) NOT NULL,
   anmeldedatum TIMESTAMP NOT NULL,
+  konto_aktiv NUMBER(1) NOT NULL,
   PRIMARY KEY (leser_id)
 );
 
@@ -102,7 +105,9 @@ CREATE TABLE mahnungen
 (
   mahnung_id NUMBER(6),
   leser_id NUMBER(6),
-  mahnungsadtum TIMESTAMP,
+  mahnungsadtum TIMESTAMP NOT NULL,
+  grund NUMBER(4) NOT NULL,
+  beschreibung VARCHAR(255),
   FOREIGN KEY (leser_id) REFERENCES leser(leser_id),
   PRIMARY KEY (leser_id,mahnungsadtum)
 );
@@ -116,6 +121,15 @@ CREATE TABLE verlag
   PRIMARY KEY (verlag_id)
 );
 
+CREATE TABLE verlegt
+(
+  verlag_id NUMBER(6),
+  buch_id NUMBER(6),
+  FOREIGN KEY (verlag_id) REFERENCES verlag(verlag_id),
+  FOREIGN KEY (buch_id) REFERENCES buch(buch_id),
+  PRIMARY KEY (verlag_id,buch_id)
+);
+
 CREATE SEQUENCE seq_autor_id START WITH 1 INCREMENT BY 1;
 CREATE TABLE autor
 (
@@ -123,6 +137,7 @@ CREATE TABLE autor
   vorname VARCHAR(25) NOT NULL,
   nachname VARCHAR(25) NOT NULL,
   titel VARCHAR(25),
+  kuenstlername VARCHAR(25),
   PRIMARY KEY (autor_id)
 );
 
