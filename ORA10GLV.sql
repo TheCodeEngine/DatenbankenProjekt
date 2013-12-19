@@ -9,6 +9,8 @@
 -- DB zuruecksetzen
 --
 ------------------------------------------------------------------------------------------------------------------------
+DROP TABLE format;
+DROP TABLE formatart;
 DROP TABLE verlegt;
 DROP TABLE autorenschaft;
 DROP SEQUENCE GDB1331.seq_autor_id;
@@ -40,7 +42,7 @@ CREATE TABLE buch
   herausgeber VARCHAR(25) NOT NULL,
   aufnahmedatum DATE NOT NULL,
   isbn NUMBER(13),
-  art NUMBER(2),
+
   excerpt VARCHAR(255),
   tags VARCHAR(100),
   PRIMARY KEY (buch_id)
@@ -116,7 +118,7 @@ CREATE SEQUENCE seq_verlag_id START WITH 1 INCREMENT BY 10;
 CREATE TABLE verlag
 (
   verlag_id NUMBER(6),
-  name VARCHAR(25) NOT NULL,
+  name_verlag VARCHAR(25) NOT NULL,
   ort VARCHAR(25) NOT NULL,
   PRIMARY KEY (verlag_id)
 );
@@ -149,8 +151,19 @@ CREATE TABLE autorenschaft
   FOREIGN KEY (buch_id) REFERENCES buch(buch_id),
   PRIMARY KEY (autor_id,buch_id)
 );
-------------------------------------------------------------------------------------------------------------------------
---
--- DB füllen
---
-------------------------------------------------------------------------------------------------------------------------
+
+CREATE TABLE formatart
+(
+  format_id NUMBER(6),
+  PRIMARY KEY (format_id)
+);
+
+CREATE TABLE format
+(
+  buch_id NUMBER(6),
+  format_id NUMBER(6),
+  FOREIGN KEY (buch_id) REFERENCES buch(buch_id),
+  FOREIGN KEY (format_id) REFERENCES formatart(format_id),
+  PRIMARY KEY (buch_id,format_id)
+);
+
