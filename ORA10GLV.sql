@@ -41,7 +41,7 @@ CREATE TABLE buch
   erstveroeffentlichung DATE NOT NULL,
   herausgeber VARCHAR(25) NOT NULL,
   aufnahmedatum DATE NOT NULL,
-  isbn NUMBER(13),
+  isbn VARCHAR(20),
   excerpt VARCHAR(255),
   tags VARCHAR(100),
   PRIMARY KEY (buch_id)
