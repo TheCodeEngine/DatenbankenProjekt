@@ -37,13 +37,14 @@ CREATE SEQUENCE seq_buch_id START WITH 1 INCREMENT BY 1;
 CREATE TABLE buch
 (
   buch_id NUMBER(6),
-  title VARCHAR(25) NOT NULL,
+  title VARCHAR2(25) NOT NULL,
   erstveroeffentlichung DATE NOT NULL,
-  herausgeber VARCHAR(25) NOT NULL,
+  herausgeber VARCHAR2(25) NOT NULL,
   aufnahmedatum DATE NOT NULL,
-  isbn VARCHAR(20),
-  excerpt VARCHAR(255),
-  tags VARCHAR(100),
+  isbn VARCHAR2(20),
+  excerpt VARCHAR2(255),
+  tags VARCHAR2(100),
+  category VARCHAR2(100) NOT NULL,
   PRIMARY KEY (buch_id)
 );
 
@@ -51,11 +52,11 @@ CREATE SEQUENCE seq_leser_id START WITH 1 INCREMENT BY 1;
 CREATE TABLE leser
 (
   leser_id NUMBER(6),
-  nachname VARCHAR(25) NOT NULL,
-  vorname VARCHAR(25) NOT NULL,
+  nachname VARCHAR2(25) NOT NULL,
+  vorname VARCHAR2(25) NOT NULL,
   geburtsdatum DATE NOT NULL,
-  titel VARCHAR(25),
-  adresse VARCHAR(25) NOT NULL,
+  titel VARCHAR2(25),
+  adresse VARCHAR2(25) NOT NULL,
   anmeldedatum TIMESTAMP NOT NULL,
   konto_aktiv NUMBER(1) NOT NULL,
   PRIMARY KEY (leser_id)
@@ -103,7 +104,7 @@ CREATE TABLE mahnungen
   leser_id NUMBER(6) REFERENCES leser(leser_id),
   mahnungsadtum TIMESTAMP NOT NULL,
   grund NUMBER(4) NOT NULL,
-  beschreibung VARCHAR(255),
+  beschreibung VARCHAR2(255),
   PRIMARY KEY (leser_id,mahnungsadtum)
 );
 
@@ -111,8 +112,8 @@ CREATE SEQUENCE seq_verlag_id START WITH 1 INCREMENT BY 10;
 CREATE TABLE verlag
 (
   verlag_id NUMBER(6),
-  name_verlag VARCHAR(25) NOT NULL,
-  ort VARCHAR(25) NOT NULL,
+  name_verlag VARCHAR2(25) NOT NULL,
+  ort VARCHAR2(25) NOT NULL,
   PRIMARY KEY (verlag_id)
 );
 
@@ -127,10 +128,10 @@ CREATE SEQUENCE seq_autor_id START WITH 1 INCREMENT BY 1;
 CREATE TABLE autor
 (
   autor_id NUMBER(6),
-  vorname VARCHAR(25) NOT NULL,
-  nachname VARCHAR(25) NOT NULL,
-  titel VARCHAR(25),
-  kuenstlername VARCHAR(25),
+  vorname VARCHAR2(25) NOT NULL,
+  nachname VARCHAR2(25) NOT NULL,
+  titel VARCHAR2(25),
+  kuenstlername VARCHAR2(25),
   PRIMARY KEY (autor_id)
 );
 
