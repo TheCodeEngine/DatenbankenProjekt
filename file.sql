@@ -128,3 +128,9 @@ SELECT b.category, COUNT(*) AS numInstances FROM buch b GROUP BY b.category;
 --
 -- Ausleih Historie Report
 SELECT ausleihe.AUSLEIHDATUM, leser.vorname, buch.title FROM ausleihe JOIN leser ON ausleihe.LESER_ID = leser.LESER_ID JOIN buch on ausleihe.BUCH_ID=buch.BUCH_ID;
+
+--
+-- Noch nicht zurückgegebene Bücher Report
+SELECT leser.vorname, leser.nachname, buch.title, ausleihe.AUSLEIHDATUM FROM ausleihe JOIN leser ON ausleihe.LESER_ID = leser.LESER_ID JOIN buch on ausleihe.BUCH_ID=buch.BUCH_ID
+MINUS
+SELECT leser.vorname, leser.nachname, buch.title, RUECKGABE.AUSLEIHDATUM FROM RUECKGABE JOIN leser ON RUECKGABE.LESER_ID = leser.LESER_ID JOIN buch on RUECKGABE.BUCH_ID=buch.BUCH_ID
