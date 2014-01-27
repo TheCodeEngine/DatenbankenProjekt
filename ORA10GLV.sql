@@ -35,6 +35,7 @@ DROP TABLE format;
 CREATE TABLE format
 (
   format_id NUMBER(6),
+  art VARCHAR2(20),
   PRIMARY KEY (format_id)
 );
 
