@@ -24,6 +24,7 @@ DROP SEQUENCE GDB1331.seq_buch_id;
 DROP TABLE buch;
 DROP SEQUENCE GDB1331.seq_leser_id;
 DROP TABLE leser;
+DROP SEQUENCE GDB1331.seq_format_id;
 DROP TABLE format;
 
 ------------------------------------------------------------------------------------------------------------------------
@@ -32,6 +33,7 @@ DROP TABLE format;
 --
 ------------------------------------------------------------------------------------------------------------------------
 
+CREATE SEQUENCE seq_format_id START WITH 1 INCREMENT BY 1;
 CREATE TABLE format
 (
   format_id NUMBER(6),
