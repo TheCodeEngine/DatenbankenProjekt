@@ -66,7 +66,7 @@ CREATE TABLE leser
   vorname VARCHAR2(25) NOT NULL,
   geburtsdatum DATE NOT NULL,
   titel VARCHAR2(25),
-  adresse VARCHAR2(25) NOT NULL,
+  adresse VARCHAR2(100) NOT NULL,
   anmeldedatum DATE NOT NULL,
   konto_aktiv NUMBER(1) NOT NULL,
   PRIMARY KEY (leser_id)
