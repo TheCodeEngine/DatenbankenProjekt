@@ -57,7 +57,7 @@ CREATE TABLE leser
   geburtsdatum DATE NOT NULL,
   titel VARCHAR2(25),
   adresse VARCHAR2(25) NOT NULL,
-  anmeldedatum TIMESTAMP NOT NULL,
+  anmeldedatum DATE NOT NULL,
   konto_aktiv NUMBER(1) NOT NULL,
   PRIMARY KEY (leser_id)
 );
@@ -66,7 +66,7 @@ CREATE TABLE ausleihe
 (
   leser_id NUMBER(6) REFERENCES leser(leser_id),
   buch_id NUMBER(6) REFERENCES buch(buch_id),
-  ausleihdatum TIMESTAMP NOT NULL,
+  ausleihdatum DATE NOT NULL,
   PRIMARY KEY (buch_id,ausleihdatum)
 );
 
@@ -74,8 +74,8 @@ CREATE TABLE rueckgabe
 (
   leser_id NUMBER(6) REFERENCES leser(leser_id),
   buch_id NUMBER(6),
-  ausleihdatum TIMESTAMP,
-  rueckgabedatum TIMESTAMP NOT NULL,
+  ausleihdatum DATE,
+  rueckgabedatum DATE NOT NULL,
   FOREIGN KEY (buch_id,ausleihdatum) REFERENCES ausleihe(buch_id,ausleihdatum),
   PRIMARY KEY (buch_id,ausleihdatum)
 );
@@ -84,7 +84,7 @@ CREATE TABLE verlaengerung
 (
   leser_id NUMBER(6) REFERENCES leser(leser_id),
   buch_id NUMBER(6),
-  ausleihdatum TIMESTAMP,
+  ausleihdatum DATE,
   verlaengerung NUMBER(1),
   FOREIGN KEY (buch_id,ausleihdatum) REFERENCES ausleihe(buch_id,ausleihdatum),
   PRIMARY KEY (buch_id,ausleihdatum)
@@ -94,7 +94,7 @@ CREATE TABLE vorbestellung
 (
   leser_id NUMBER(6) REFERENCES leser(leser_id),
   buch_id NUMBER(6),
-  vorbestelldatum TIMESTAMP,
+  vorbestelldatum DATE,
   PRIMARY KEY (buch_id,vorbestelldatum)
 );
 
@@ -102,11 +102,11 @@ CREATE TABLE mahnungen
 (
   mahnung_id NUMBER(6),
   leser_id NUMBER(6) REFERENCES leser(leser_id),
-  mahnungsadtum TIMESTAMP NOT NULL,
+  mahnungsadtum DATE NOT NULL,
   grund NUMBER(4) NOT NULL,
   beschreibung VARCHAR2(255),
   buch_id NUMBER(6) REFERENCES buch(buch_id),
-  ausleihdatum TIMESTAMP NOT NULL,
+  ausleihdatum DATE NOT NULL,
   FOREIGN KEY (buch_id, ausleihdatum) REFERENCES ausleihe(buch_id, ausleihdatum),
   PRIMARY KEY (leser_id,mahnungsadtum)
 );
