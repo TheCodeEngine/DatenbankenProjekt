@@ -97,7 +97,21 @@ INSERT INTO leser (LESER_ID, NACHNAME, VORNAME, GEBURTSDATUM, ADRESSE, ANMELDEDA
 --
 -- ausleihe
 --
+INSERT INTO AUSLEIHE (LESER_ID, BUCH_ID, AUSLEIHDATUM) VALUES (
+  5,
+  1,
+  to_date('2014/01/01 09:34:00', 'yyyy/mm/dd hh24:mi:ss')
+);
 
+--
+-- rueckgabe
+--
+INSERT INTO RUECKGABE (LESER_ID, BUCH_ID, AUSLEIHDATUM, RUECKGABEDATUM) VALUES (
+  1,
+  5,
+  to_date('2014/01/01 09:34:00', 'yyyy/mm/dd hh24:mi:ss'),
+  to_date('2014/01/22 18:08:00', 'yyyy/mm/dd hh24:mi:ss')
+);
 
 
 ------------------------------------------------------------------------------------------------------------------------
@@ -112,4 +126,5 @@ INSERT INTO leser (LESER_ID, NACHNAME, VORNAME, GEBURTSDATUM, ADRESSE, ANMELDEDA
 SELECT b.category, COUNT(*) AS numInstances FROM buch b GROUP BY b.category;
 
 --
--- Count Categorys 
+-- Ausleih Historie Report
+SELECT ausleihe.AUSLEIHDATUM, leser.vorname, buch.title FROM ausleihe JOIN leser ON ausleihe.LESER_ID = leser.LESER_ID JOIN buch on ausleihe.BUCH_ID=buch.BUCH_ID;
