@@ -9,8 +9,6 @@
 -- DB zuruecksetzen
 --
 ------------------------------------------------------------------------------------------------------------------------
-DROP TABLE format;
-DROP TABLE formatart;
 DROP TABLE verlegt;
 DROP TABLE autorenschaft;
 DROP SEQUENCE GDB1331.seq_autor_id;
@@ -26,12 +24,19 @@ DROP SEQUENCE GDB1331.seq_buch_id;
 DROP TABLE buch;
 DROP SEQUENCE GDB1331.seq_leser_id;
 DROP TABLE leser;
+DROP TABLE format;
 
 ------------------------------------------------------------------------------------------------------------------------
 --
 -- DB erzeugen:
 --
 ------------------------------------------------------------------------------------------------------------------------
+
+CREATE TABLE format
+(
+  format_id NUMBER(6),
+  PRIMARY KEY (format_id)
+);
 
 CREATE SEQUENCE seq_buch_id START WITH 1 INCREMENT BY 1;
 CREATE TABLE buch
@@ -45,6 +50,8 @@ CREATE TABLE buch
   excerpt VARCHAR2(255),
   tags VARCHAR2(100),
   category VARCHAR2(100) NOT NULL,
+  format_id NUMBER(6),
+  FOREIGN KEY (format_id) REFERENCES format(format_id),
   PRIMARY KEY (buch_id)
 );
 
@@ -144,17 +151,3 @@ CREATE TABLE autorenschaft
   buch_id NUMBER(6) REFERENCES buch(buch_id),
   PRIMARY KEY (autor_id,buch_id)
 );
-
-CREATE TABLE formatart
-(
-  format_id NUMBER(6),
-  PRIMARY KEY (format_id)
-);
-
-CREATE TABLE format
-(
-  buch_id NUMBER(6) REFERENCES buch(buch_id),
-  format_id NUMBER(6) REFERENCES formatart(format_id),
-  PRIMARY KEY (buch_id,format_id)
-);
-
