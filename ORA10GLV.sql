@@ -105,6 +105,9 @@ CREATE TABLE mahnungen
   mahnungsadtum TIMESTAMP NOT NULL,
   grund NUMBER(4) NOT NULL,
   beschreibung VARCHAR2(255),
+  buch_id NUMBER(6) REFERENCES buch(buch_id),
+  ausleihdatum TIMESTAMP NOT NULL,
+  FOREIGN KEY (buch_id, ausleihdatum) REFERENCES ausleihe(buch_id, ausleihdatum),
   PRIMARY KEY (leser_id,mahnungsadtum)
 );
 
