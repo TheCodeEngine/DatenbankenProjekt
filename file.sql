@@ -17,7 +17,7 @@ INSERT INTO format (format_id, art) VALUES (seq_format_id.nextval, 'Hoerbuch');
 -- Buecher
 --
 
-INSERT INTO buch (BUCH_ID, TITLE, erstveroeffentlichung, herausgeber, aufnahmedatum, isbn, excerpt, tags, CATEGORY) VALUES ( 
+INSERT INTO buch (BUCH_ID, TITLE, erstveroeffentlichung, herausgeber, aufnahmedatum, isbn, excerpt, tags, CATEGORY, format_id) VALUES ( 
   seq_buch_id.nextval, 
   'Title 1', 
   to_date('2011/04/22 08:30:00', 'yyyy/mm/dd hh24:mi:ss'), 
@@ -26,10 +26,11 @@ INSERT INTO buch (BUCH_ID, TITLE, erstveroeffentlichung, herausgeber, aufnahmeda
   '912-144-3444', 
   'Dies ist das Excerpt', 
   'Tag1',
-  'category1'
+  'category1',
+  1
 );
 
-INSERT INTO buch (BUCH_ID, TITLE, erstveroeffentlichung, herausgeber, aufnahmedatum, isbn, excerpt, tags, CATEGORY) VALUES ( 
+INSERT INTO buch (BUCH_ID, TITLE, erstveroeffentlichung, herausgeber, aufnahmedatum, isbn, excerpt, tags, CATEGORY, format_id) VALUES ( 
   seq_buch_id.nextval, 
   'Title 2', 
   to_date('2011/04/22 08:30:00', 'yyyy/mm/dd hh24:mi:ss'), 
@@ -38,7 +39,8 @@ INSERT INTO buch (BUCH_ID, TITLE, erstveroeffentlichung, herausgeber, aufnahmeda
   '912-144-3444', 
   'Dies ist das Excerpt', 
   'Tag1',
-  'category2'
+  'category2',
+  2
 );
 
 --
@@ -67,6 +69,34 @@ INSERT INTO autor (AUTOR_ID, VORNAME, NACHNAME) VALUES (
   'Alfred',
   'Ibach'
 );
+
+--
+-- Leser
+--
+INSERT INTO leser (LESER_ID, NACHNAME, VORNAME, GEBURTSDATUM, TITEL, ADRESSE, ANMELDEDATUM, KONTO_AKTIV) VALUES (
+  seq_leser_id.nextval,
+  'Max',
+  'Mustermann',
+  to_date('1990/01/01', 'yyyy/mm/dd'), 
+  'Dr.',
+  'Stra§e am Platz 17, Leipzig',
+  to_date('2014/01/01', 'yyyy/mm/dd'),
+  1
+);
+
+INSERT INTO leser (LESER_ID, NACHNAME, VORNAME, GEBURTSDATUM, ADRESSE, ANMELDEDATUM, KONTO_AKTIV) VALUES (
+  seq_leser_id.nextval,
+  'John',
+  'Doe',
+  to_date('1987/01/01', 'yyyy/mm/dd'), 
+  'Stra§e am Platz 17, Berlin',
+  to_date('2014/01/01', 'yyyy/mm/dd'),
+  1
+);
+
+--
+-- ausleihe
+--
 
 
 
