@@ -135,22 +135,10 @@ SELECT leser.vorname, leser.nachname, buch.title, ausleihe.AUSLEIHDATUM FROM aus
 MINUS
 SELECT leser.vorname, leser.nachname, buch.title, RUECKGABE.AUSLEIHDATUM FROM RUECKGABE JOIN leser ON RUECKGABE.LESER_ID = leser.LESER_ID JOIN buch on RUECKGABE.BUCH_ID=buch.BUCH_ID
 
---
--- Welche Bücher wurden am meisten ausgeliehen
---
-  --
-  -- Ausleih Historie Report
-  SELECT ausleihe.AUSLEIHDATUM, leser.vorname, buch.title FROM ausleihe JOIN leser ON ausleihe.LESER_ID = leser.LESER_ID JOIN buch on ausleihe.BUCH_ID=buch.BUCH_ID;
-  
-  --
-  -- Noch nicht zurŸckgegebene BŸcher Report
-  SELECT leser.vorname, leser.nachname, buch.title, ausleihe.AUSLEIHDATUM FROM ausleihe JOIN leser ON ausleihe.LESER_ID = leser.LESER_ID JOIN buch on ausleihe.BUCH_ID=buch.BUCH_ID
-  MINUS
-  SELECT leser.vorname, leser.nachname, buch.title, RUECKGABE.AUSLEIHDATUM FROM RUECKGABE JOIN leser ON RUECKGABE.LESER_ID = leser.LESER_ID JOIN buch on RUECKGABE.BUCH_ID=buch.BUCH_ID
 
-  --
-  -- Welche Buecher wurden am meisten ausgeliehen
-  --
+--
+-- Welche Buecher wurden am meisten ausgeliehen
+--
 SELECT buch.title, q.TotalAusleihe
 FROM buch JOIN
 (SELECT buch_id, COUNT(buch_id) as TotalAusleihe FROM ausleihe GROUP BY buch_id) q
